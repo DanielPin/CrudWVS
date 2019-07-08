@@ -35,6 +35,14 @@
       "cliente.estado":{
     	  required: true
       },
+      "cliente.telefone":{
+    	  minlength: 13,
+          maxlength: 13
+      },
+      "cliente.celular":{
+    	  minlength: 14,
+          maxlength: 14
+      }
       
       
     },

@@ -46,6 +46,11 @@
 	</div>
 	
 	<div class="form-group col-md-6">
+	<label for="cep">CEP:</label>
+	<input type="text" name="cliente.cep" id="cep" class="form-control" value="${cliente.cep}" placeholder="00000-000" onblur="pesquisacep(this.value);"/>
+	</div>
+	
+	<div class="form-group col-md-6">
 	<label for="rua">RUA:</label>
 	<input type="text" name="cliente.rua" id="rua" class="form-control" value="${cliente.rua}"/>
 	</div>
@@ -53,12 +58,7 @@
 	<div class="form-group col-md-6">
 	<label for="bairro">BAIRRO:</label>
 	<input type="text" name="cliente.bairro" id="bairro" class="form-control" value="${cliente.bairro}"/>
-	</div>
-	
-	<div class="form-group col-md-6">
-	<label for="cep">CEP:</label>
-	<input type="text" name="cliente.cep" id="cep" class="form-control" value="${cliente.cep}" placeholder="00000-000"/>
-	</div>
+	</div>	
 	
 	<div class="form-group col-md-6">
 	<label for="cidade">CIDADE:</label>
@@ -66,8 +66,8 @@
 	</div>	
 	
 	<div class="form-group col-md-6">
-	<label for="estado">ESTADO:</label>
-	<input type="text" name="cliente.estado" id="estado" class="form-control" value="${cliente.estado}"/>
+	<label for="uf">ESTADO:</label>
+	<input type="text" name="cliente.estado" id="uf" class="form-control" value="${cliente.estado}"/>
 	</div>		
 	
 	<input type="hidden" name="_method" value="PUT">
