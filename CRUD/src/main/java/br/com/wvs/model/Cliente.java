@@ -19,18 +19,12 @@ public class Cliente {
 	private String cpf;
 	
 	@NotEmpty
-	private String nome;
-	
-	private String telefone;	
+	private String nome;		
 	
 	private String celular;
 	
 	@NotEmpty
-	@Email
 	private String email;
-	
-	@NotEmpty
-	private String rg;
 	
 	@NotEmpty
 	private String rua;
@@ -46,14 +40,6 @@ public class Cliente {
 	
 	@NotEmpty
 	private String estado;
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
 
 	public String getCelular() {
 		return celular;
@@ -102,14 +88,6 @@ public class Cliente {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getRg() {
-		return rg;
-	}
-
-	public void setRg(String rg) {
-		this.rg = rg;
 	}
 
 	public String getRua() {

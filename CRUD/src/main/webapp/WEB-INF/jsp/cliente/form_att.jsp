@@ -24,20 +24,10 @@
 	<label for="cpf">CPF:</label>
 	<input type="text" name="cliente.cpf" id="cpf" class="form-control" value="${cliente.cpf}" placeholder="000.000.000-00"/>
 	</div>
-	
-	<div class="form-group col-md-6">
-	<label for="rg">RG:</label>
-	<input type="text" name="cliente.rg" id="rg" class="form-control" value="${cliente.rg}" placeholder="00.000.000-0"/>
-	</div>
-	
+
 	<div class="form-group col-md-6">
 	<label for="email">E-MAIL:</label>
 	<input type="text" name="cliente.email" id="email" class="form-control" value="${cliente.email}"/>
-	</div>
-	
-	<div class="form-group col-md-6">
-	<label for="telefone">TELEFONE:</label>
-	<input type="text" name="cliente.telefone" id="telefone" class="form-control" value="${cliente.telefone}"/>
 	</div>
 	
 	<div class="form-group col-md-6">
@@ -87,7 +77,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">Deseja realmente atualizar o cliente : ${cliente.nome}?</div>
+					<div class="modal-body">Deseja realmente atualizar o(a) cliente : ${cliente.nome}?</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" data-dismiss="modal"
 							onclick="msg()">Cancelar</button>

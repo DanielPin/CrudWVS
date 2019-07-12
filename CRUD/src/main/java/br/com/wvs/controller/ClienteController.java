@@ -3,15 +3,14 @@ package br.com.wvs.controller;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
+
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.interceptor.IncludeParameters;
-import br.com.caelum.vraptor.validator.Validator;
+
 import br.com.wvs.dao.ClienteDao;
 import br.com.wvs.model.Cliente;
 
@@ -20,13 +19,11 @@ public class ClienteController {
 	
 	private ClienteDao clienteDao;
 	private Result result;
-	private Validator validator;
 	
 	@Inject
-	public ClienteController(ClienteDao clienteDao, Result result, Validator validator) {
+	public ClienteController(ClienteDao clienteDao, Result result) {
 		this.clienteDao = clienteDao;
 		this.result = result;
-		this.validator = validator;
 	}
 	
 	public ClienteController() {};
@@ -40,9 +37,8 @@ public class ClienteController {
 	};
 	
 	
-	@IncludeParameters
-	public void adiciona (@Valid Cliente cliente) {
-		validator.onErrorRedirectTo(this).form();
+	
+	public void adiciona (Cliente cliente) {
 		clienteDao.adiciona(cliente);
 		result.redirectTo(this).lista();
 	}
@@ -62,6 +58,7 @@ public class ClienteController {
 	@Delete
 	public void remove (Cliente cliente) {
 		clienteDao.remove(cliente);
+		result.include("sucesso","show");		
 		result.redirectTo(this).lista();
 	}
 	

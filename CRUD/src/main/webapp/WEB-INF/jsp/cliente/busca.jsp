@@ -48,34 +48,8 @@
 						<form action="<c:url  value='/cliente/remove'/>" method="post">
 							<input type="hidden" name="_method" value="DELETE"> 
 							<input type="hidden" name="cliente.id" value="${cliente.id}"> 
-								
-								
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo">Excluir</button>
-
-							<!-- Modal -->
-							<div class="modal fade" id="modalExemplo" tabindex="-1"
-								role="dialog" aria-labelledby="exampleModalLabel"
-								aria-hidden="true">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Cadastrar
-												novo usuario</h5>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Cancelar">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">Deseja realmente deletar o cliente(a): ${cliente.nome} ?</div>									
-										<div class="modal-footer">
-											<button type="button" class="btn btn-primary"
-												data-dismiss="modal">Cancelar</button>
-											<button type="submit" class="btn btn-primary">Confirmar</button>
-										</div>
-									</div>
-								</div>
-							</div>
-
+						    <input	type="submit" value="Excluir" class="btn btn-primary">						
+						
 						</form>
 					</td>
 

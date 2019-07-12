@@ -9,18 +9,62 @@
 
 <link href="<c:url value='/css/bootstrap.css'/>" rel="stylesheet" />
 <link href="<c:url value='/css/site.css'/>" rel="stylesheet" />
+<link href="<c:url value='/css/jquery.dataTables.css'/>" rel="stylesheet" />
+<link href="<c:url value='/css/fixedHeader.dataTables.min.css'/>" rel="stylesheet" />
+<link href="<c:url value='/css/responsive.dataTables.min.css'/>" rel="stylesheet" />
+
+
 
 
 <script type="text/javascript" src="<c:url value='/js/jquery-3.4.1.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/js/jquery.validate.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/js/jquery.mask.js'/>"> </script>
-<script type="text/javascript" src="<c:url value='/js/cidades-estados-1.4-utf8.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/js/jquery.dataTables.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/js/dataTables.fixedHeader.min.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/js/dataTables.responsive.min.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/js/cpf.validator.js'/>"> </script>
 <script  src="<c:url value='/js/bootstrap.js'/>"> </script>
 
 
 
+	
 
-   <!-- Adicionando Javascript -->
+</script>
+
+
+<script >
+
+$(document).ready(function() {	
+	
+	var table =  $('#example').DataTable({
+		responsive: true,
+    	
+         language: {
+             search: "Pesquisar",
+             info:           "Mostrando _START_ a _END_ de _TOTAL_ clientes",
+             lengthMenu:    "Mostar _MENU_ clientes por página",
+            	 paginate: {
+                     first:      "Premier",
+                     previous:   "Anterior",
+                     next:       "Próximo",
+                     last:       "Dernier",
+                     
+                 },
+             
+         }
+    });
+   
+	 
+	
+	 
+	new $.fn.dataTable.FixedHeader( table );
+} );
+
+
+</script>
+
+
+   <!-- Via CEP -->
     <script type="text/javascript" >
     
     function limpa_formulário_cep() {
@@ -90,12 +134,6 @@
 
     </script>
 
-
-
-
-
-
-
 </head>
 <body>
 
@@ -116,13 +154,9 @@
       </li>
      
     </ul>
-    <form class="form-inline my-2 my-lg-0" action="<c:url value="/cliente/busca"/>">
-      <input class="form-control mr-sm-2" type="search" name="nome" placeholder="Pesquisa por nome" aria-label="Pesquisa por nome">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-    </form>
   </div>
 </nav>
 
 
-	<div class="container" id="divContent">
+	<div class="container">
 		<main>

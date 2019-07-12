@@ -1,17 +1,13 @@
 		</main>
 		</div>
 	</body>
-	
+		
+<!-- 	Script de validação api jquery validation -->
 <script type="text/javascript">
   $('#cad_cliente').validate({
     rules: {
       "cliente.nome": {
         required: true     
-      },
-      "cliente.cpf": {
-        required: true,
-        minlength: 14,
-        maxlength: 14
       },
       "cliente.email":{
     	  required: true,
@@ -20,6 +16,10 @@
       "cliente.rg":{
     	  required: true    	  
       },
+      "cliente.cpf":{
+    	  required: true,
+    	  verificaCPF: true
+      },
       "cliente.rua":{
     	  required: true
       },
@@ -27,7 +27,9 @@
     	  required: true
       },
       "cliente.cep":{
-    	  required: true
+    	  required: true,
+    	  minlength: 9,
+          maxlength: 9
       },
       "cliente.cidade":{
     	  required: true
@@ -63,71 +65,26 @@
   });
 </script>
 
-<script>
+<!--  Script para aparecer o modal quando deletar usuario -->
+<script type="text/javascript">
 
-$('[name="cliente.estado"]').click(function(){
-
-	// ocultando todas
-	$('[name="cidades"] option').css('display', 'none');
-	 
-	// exibindo as do estado selecionado
-	$('[name="cidades"] .' + $(this).val()).css('display', '');
-
+$(document).ready(function(){
+	$("#myModal1").modal('hide');
+	$("#myModal1").modal('${sucesso}');
+	
 	});
-
 
 </script>
 
-<script type="text/javascript">	
-		
-		$(document).ready(function () {
-		
-			$.getJSON('estados_cidades.json', function (data) {
-				var items = [];
-				var options = '<option value="">escolha um estado</option>';	
-				$.each(data, function (key, val) {
-					options += '<option value="' + val.nome + '">' + val.nome + '</option>';
-				});					
-				$("#estados").html(options);				
-				
-				$("#estados").change(function () {				
-				
-					var options_cidades = '';
-					var str = "";					
-					
-					$("#estados option:selected").each(function () {
-						str += $(this).text();
-					});
-					
-					$.each(data, function (key, val) {
-						if(val.nome == str) {							
-							$.each(val.cidades, function (key_city, val_city) {
-								options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
-							});							
-						}
-					});
-					$("#cidades").html(options_cidades);
-					
-				}).change();		
-			
-			});
-		
-		});
-		
-	</script>		
-
-
+<!-- Script de mascaras do formulario de cadastro -->
 <script>
 //Mascara CPF
 $(document).ready(function(){
-  $('#cpf').mask('000.000.000-00');
   $('#rg').mask('00.000.000-0');
   $('#cep').mask("00000-000");
   $('#telefone').mask("(00)0000-0000");
   $('#celular').mask("(00)00000-0000");
 });
 </script>
-
-
 
 </html>

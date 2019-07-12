@@ -4184,6 +4184,9 @@ input[type="button"].btn-block {
   justify-content: space-between;
 }
 
+#lista{
+	margin-top: 1%;
+}
 .navbar-brand {
   display: inline-block;
   padding-top: 0.3125rem;
@@ -4222,7 +4225,7 @@ input[type="button"].btn-block {
 #tamanho_lista{
 	
 overflow: auto;
-height: 598px;
+height: 550px;
 width: 1350px;;
 	
 	

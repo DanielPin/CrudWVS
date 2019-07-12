@@ -12,7 +12,7 @@
 
 		<div class="form-row">
 			<div class="form-group col-md-6">
-				<label for="nome">NOME:</label> <input type="text" name="cliente.nome" id="nome" class="form-control" value="${cliente.nome}" placeholder="Nome completo" />
+				<label for="nome">NOME:</label> <input type="text" name="cliente.nome" id="nome" class="form-control" value="${cliente.nome}" placeholder="Nome completo"/>
 			</div>
 
 			<div class="form-group col-md-6">
@@ -20,15 +20,7 @@
 			</div>
 
 			<div class="form-group col-md-6">
-				<label for="rg">RG:</label> <input type="text" name="cliente.rg" id="rg" class="form-control" value="${cliente.rg}"	placeholder="00.000.000-0" />
-			</div>
-
-			<div class="form-group col-md-6">
 				<label for="email">E-MAIL:</label> <input type="text" name="cliente.email" id="email" class="form-control" value="${cliente.email}" placeholder="Digite um e-mail" />
-			</div>
-
-			<div class="form-group col-md-6">
-				<label for="telefone">TELEFONE:</label> <input type="text" name="cliente.telefone" id="telefone" class="form-control" value="${cliente.telefone}" placeholder="(00)0000-0000" />
 			</div>
 
 			<div class="form-group col-md-6">
@@ -59,44 +51,12 @@
 			<div class="form-group col-md-6">
 				<label for="cidade">CIDADE:</label> 				
 				<input type="text" name="cliente.cidade" id="cidade" class="form-control" value="${cliente.cidade}" />
-			</div>
-			
-			
-				
-			
-			
-<!-- 			<div class="form-group col-md-6"> -->
-<!-- 			   <select class="form-control" id="estado1" value="TO"></select> -->
-			   
-<!-- 			 </div> -->
-<!-- 			   <select id="cidade1" value="Aragua�na"></select> -->
-			   
-			   
-			   
-			   
-			   
-			   
-<!-- 					    <script language="JavaScript" type="text/javascript" charset="utf-8"> -->
-<!--  					      new dgCidadesEstados({-->
-<!--  					        cidade: document.getElementById('cidade1'),-->
- <!-- 					        estado: document.getElementById('estado1')-->
- 	<!-- 				      })-->
-<!-- 			    </script> -->
-			
-			
-			
-			
-			
-			
-			
-			
-			
-					
+			</div>			
 			
 		</div>
 
 		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#modalExemplo">Cadastrar</button>
+			data-target="#modalExemplo" id="cadastrar">Cadastrar</button>
 
 		<!-- Modal -->
 		<div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog"
@@ -104,13 +64,13 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Cadastrar novo usuario</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Cadastrar novo cliente</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Cancelar">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">Deseja realmente cadastrar este novo usuario?</div>
+					<div class="modal-body">Deseja realmente cadastrar um novo cliente ?</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" data-dismiss="modal"
 							onclick="msg()">Cancelar</button>

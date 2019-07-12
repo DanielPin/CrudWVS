@@ -2,6 +2,7 @@
 
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -14,11 +15,11 @@ import br.com.wvs.model.Cliente;
 
 @RequestScoped
 public class ClienteDao {
-
+	
 	private EntityManager manager;
 	
 	@Inject
-	public ClienteDao(EntityManager manager ) {
+	public ClienteDao(@SqlServer EntityManager manager ) {
 		this.manager = manager;
 	}
 	
