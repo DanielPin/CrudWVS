@@ -3,7 +3,6 @@
 
 <c:import url="/WEB-INF/jsp/header.jsp"></c:import>
 
-<div id="tamanho_form">
 
 
 <form  action="${linkTo[ClienteController].update(null) }"  method="POST" id="cad_cliente">
@@ -91,7 +90,7 @@
 	
 </form>
 
-</div>
+
 
 
 <c:import url="/WEB-INF/jsp/footer.jsp"></c:import>

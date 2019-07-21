@@ -12,11 +12,12 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
 
 import br.com.wvs.dao.ClienteDao;
+import br.com.wvs.dao.SqlServer;
 import br.com.wvs.model.Cliente;
 
 @Controller
 public class ClienteController {
-	
+
 	private ClienteDao clienteDao;
 	private Result result;
 	
@@ -30,6 +31,8 @@ public class ClienteController {
 	
 	public void form() {};
 	
+	public void formCpf() {};
+	
 	
 	@Path("/cliente/form_att/{cliente.id}")
 	public Cliente form_att(Cliente cliente) {		
@@ -39,8 +42,17 @@ public class ClienteController {
 	
 	
 	public void adiciona (Cliente cliente) {
-		clienteDao.adiciona(cliente);
-		result.redirectTo(this).lista();
+		try {
+			clienteDao.adiciona(cliente);	
+			result.include("cadSu","Novo cliente cadastrado com sucesso");
+			result.redirectTo(this).lista();	
+		}catch (Exception e) {
+			result.include("invalido","CPF já cadastrado");
+			result.redirectTo(this).form();	
+			
+		}{
+			
+		}
 	}
 	
 	
@@ -64,9 +76,17 @@ public class ClienteController {
 	
 
 	
-	public List<Cliente> busca(String nome){
-		result.include("nome", nome);
-		return clienteDao.busca(nome);
+	public void busca(String cpf){		
+		try {
+			clienteDao.busca(cpf);		
+			result.include("cad","CPF já cadastrado");	
+			result.redirectTo(this).formCpf();
+			}catch (Exception e) {
+				result.include("cadN","CPF não cadastrado, realize o cadastro");
+				result.redirectTo(this).form();
+				
+			} 
+
 	}
 
 }

@@ -1,5 +1,6 @@
 package br.com.wvs.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class Cliente {
 	private int id;
 	
 	@NotEmpty
+	@Column(unique=true)
 	private String cpf;
 	
 	@NotEmpty

@@ -3,13 +3,13 @@
 
 <c:import url="/WEB-INF/jsp/header.jsp"></c:import>
 
-<div id="tamanho_form">
+<div>
 
 
 	<form action="${linkTo[ClienteController].adiciona(null) }"
 		method="POST" id="cad_cliente">
-
-
+		<p id="cadN">${cadN}</p>
+		<p id="erro">${invalido}</p>
 		<div class="form-row">
 			<div class="form-group col-md-6">
 				<label for="nome">NOME:</label> <input type="text" name="cliente.nome" id="nome" class="form-control" value="${cliente.nome}" placeholder="Nome completo"/>

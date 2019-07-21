@@ -1,8 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags/template" prefix="template" %>
 <c:import url="/WEB-INF/jsp/header.jsp" />
-<div id="lista">
-	<table id="example" class="display nowrap">
+<div class="table-responsive" id="lista">
+	<table id="example" class="display nowrap " style="width: 100%">
+	<p id="cadSu">${cadSu}</p>
 		<thead>
 			<tr>				
 				<th>NOME</th>
@@ -15,7 +16,9 @@
 				<th>CIDADE</th>
 				<th>ESTADO</th>
 				<th>Editar</th>
-				<th>Excluir</th>
+				<c:if test="${usuarioLogado.logado}"> 
+					<th>Excluir</th>
+				</c:if>
 			</tr>
 		</thead>
 		<tbody>
@@ -38,14 +41,15 @@
 							
 						</form>
 					</td>
-					<td>
-						<form action="<c:url  value='/cliente/remove'/>" method="post">
-							<input type="hidden" name="_method" value="DELETE"> 
-							<input type="hidden" name="cliente.id" value="${cliente.id}"> 
-							<input	type="submit" value="Excluir" >										
-						</form>
-					</td>
-
+					<c:if test="${usuarioLogado.logado}">
+						<td>
+							<form action="<c:url  value='/cliente/remove'/>" method="post">
+								<input type="hidden" name="_method" value="DELETE"> 
+								<input type="hidden" name="cliente.id" value="${cliente.id}"> 
+								<input	type="submit" value="Excluir" >										
+							</form>
+						</td>
+					</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>
