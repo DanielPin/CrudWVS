@@ -11,10 +11,11 @@ import br.com.wvs.model.Usuario;
 @Named
 @SessionScoped
 public class UsuarioLogado implements Serializable{
-	
+
+	private static final long serialVersionUID = -6649846404932418640L;
 	private Usuario usuario;
 
-	
+
 	public void fazLogin(Usuario usuario){
 		this.usuario = usuario;
 	

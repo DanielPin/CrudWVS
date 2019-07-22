@@ -8,6 +8,6 @@ import br.com.caelum.vraptor.Path;
 public class IndexController {
 	
 	@Path("/")
-	public void index() {};
+	public void index() {}; //Caminho para pagina inicial
 
 }

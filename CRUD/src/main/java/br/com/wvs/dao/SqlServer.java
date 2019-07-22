@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import javax.inject.Qualifier;
 
-
+// Criação de uma anotação que devera ser usada como @SqlServer para informar que desejamos usar o banco SQLServer
 @Retention(RUNTIME)
 @Target({METHOD,FIELD,PARAMETER})
 @Qualifier
