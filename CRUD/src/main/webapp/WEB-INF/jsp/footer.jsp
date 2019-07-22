@@ -88,12 +88,20 @@ $('#cad_usuario').validate({
  			  required: true,
  			  minlength:2
  		},
- 		
+ 		"confSenha":{
+ 			required: true,
+ 			minlength: 6,
+			maxlength: 18
+ 		},
  		    
     }, 
     messages:{
     	"usuario.senha":{
     	    minlength: "Valor minimo 6 caracteres",
+    	    maxlength: "Maximo 19 caracteres"
+    	},
+    	"confSenha":{
+    		minlength: "Valor minimo 6 caracteres",
     	    maxlength: "Maximo 19 caracteres"
     	}
     }

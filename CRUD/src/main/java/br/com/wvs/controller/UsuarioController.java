@@ -35,21 +35,21 @@ public class UsuarioController {
 
 	public void formAttLog() {}
 	public void formAttSenha() {}
-	public void formCadUsu(Usuario user) {}
+	public void formCadUsu() {}
 	public void listaUser() {
 		List<Usuario> usuarios = usuarioDao.lista();
 		result.include("usuarios", usuarios);				
 	}
 	
 	
-	public void adiciona (Usuario usuario) {
-		Usuario user = usuario;
+	public void adiciona (Usuario usuario) {		
 		try {		
 		usuarioDao.adiciona(usuario);
+		result.include("addUserSucesso","USUARIO CADASTRADO COM SUCESSO");
 		result.redirectTo(this).listaUser();
 		}catch (Exception e) {
-			result.include("login","Login já existe");
-			result.redirectTo(this).formCadUsu(user);
+			result.include("login","LOGIN JÁ EXISTE, TENTE OUTRO");
+			result.redirectTo(this).formCadUsu();
 			
 		}
 	}
@@ -66,29 +66,47 @@ public class UsuarioController {
 		return usuarioDao.find(usuario.getId());
 	}
 	
+	//Trocar senha com acesso ADM
 	@Put
-	public void update(Usuario usuario) {
-		try {
-		usuarioDao.update(usuario);
-		result.redirectTo(this).listaUser();
-		}catch (Exception e) {
-			result.include("erroAtualizar", "Login já existe, tente outro");
-			result.redirectTo(this).formAttUser(usuario);
-			
+	public void update(Usuario usuario, String confSenha) {
+		
+		if(usuario.getSenha().equals(confSenha)) {			
+				usuarioDao.update(usuario);
+				result.include("senhaS","SENHA ATUALIZADA COM SUCESSO");
+				result.redirectTo(this).listaUser();			
+		}else {			
+			result.include("senhaCo","AS SENHAS NÃO COINCIDEM");
+			result.redirectTo(this).trocaSenha(usuario);
 		}
+		
 	}
+	
+	// Att dados do usuario 
+	public void updateUser(Usuario usuario) {
+		try {	
+			usuarioDao.update(usuario);
+			result.include("attSu","USUARIO ATUALIZADO COM SUCESSO");
+			result.redirectTo(this).listaUser();
+			
+		}catch (Exception e) {
+			result.include("erroAtualizar", "LOGIN JÁ EXISTE, TENTE OUTRO");
+			result.redirectTo(this).formAttUser(usuario);
+		}
+		
+	}
+	
 	
 	@Put
 	public void updateLog(Usuario usuario) {
 		try {
 		
 		usuarioDao.update(usuario);		
-		result.include("suscessoAt", "Informações atualizadas com sucesso" );		
+		result.include("suscessoAt", "INFORMAÇÕES ATUALIZADAS COM SUCESSO" );		
 		this.usuarioLogado.fazLogin(usuario);
 		result.redirectTo(this).formAttLog();
 		
 		}catch (Exception e) {
-			result.include("erroAtt", "Login já existe, tente outro");
+			result.include("erroAtt", "LOGIN JÁ EXISTE, TENTE OUTRO");
 			result.redirectTo(this).formAttLog();
 		}
 	}
@@ -102,15 +120,15 @@ public class UsuarioController {
 		 //Caso as senhas sejam iguais verifica se a nova senha e o campo confirma senha são iguais
 		 if(usuario.getSenha().equals(usuario.getSenhaConf())) {
 			 usuarioDao.update(usuario);
-			 result.include("senhaTrue","Senha atualizada com sucesso");
+			 result.include("senhaTrue","SENHA ATUALIZADA COM SUCESSO");
 			 this.usuarioLogado.fazLogin(usuario);
 			 result.redirectTo(this).formAttLog();
 		 }else {
-			 result.include("senhaConf","As senhas não coincidem");
+			 result.include("senhaConf","AS SENHAS NÃO COINCIDEM");
 			 result.redirectTo(this).formAttSenha();
 		 }
 	 }else {
-		 result.include("senhaFalse","Senha atual invalida");
+		 result.include("senhaFalse","SENHA ATUAL INVALIDA");
 		 result.redirectTo(this).formAttSenha();
 	 }
 	

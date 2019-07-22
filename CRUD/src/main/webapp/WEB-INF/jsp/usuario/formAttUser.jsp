@@ -6,7 +6,7 @@
 <div id="tamanho_form">
 
 
-	<form action="${linkTo[UsuarioController].update(null) }"
+	<form action="${linkTo[UsuarioController].updateUser(null) }"
 		method="POST" id="cad_usuario">
 
 

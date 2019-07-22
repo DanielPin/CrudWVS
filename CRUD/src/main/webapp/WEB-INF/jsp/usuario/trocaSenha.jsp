@@ -6,14 +6,14 @@
 <div id="tamanho_form">
 
 
-	<form action="${linkTo[UsuarioController].update(null) }"
-		method="POST" id="cad_cliente">
+	<form action="${linkTo[UsuarioController].update(null,null) }"
+		method="POST" id="cad_usuario">
 
 
 		<div class="form-row">
 			
 			<div class="form-group col-md-6">
-			<label>Usuario ${usuario.login} </label>
+			<label>Usuario: ${usuario.login} </label>
 			<input type="hidden" name="usuario.id" id="id" class="form-control" value="${usuario.id}" disabled="disabled"/>
 			</div>			
 		
@@ -34,8 +34,14 @@
 
 			<div class="form-group col-md-6">
 			<label for="senha">Nova Senha:</label>
-			<input type="password" name="usuario.senha" id="senha" class="form-control" value="${usuario.senha}" />
+			<input type="password" name="usuario.senha" id="senha" class="form-control" />
 			</div>		
+			
+			<div class="form-group col-md-6">
+			<label for="confSenha">Confirma Senha:</label>
+			<input type="password" name="confSenha" id="confSenha" class="form-control" />
+			<p id="senhaCo">${senhaCo}</p>
+			</div>	
 			
 			<div class="form-group col-md-6">
 			<input type=hidden name="usuario.tipoUser" id="tipoUser" class="form-control" value="${usuario.tipoUser}"/>

@@ -58,6 +58,7 @@ public class ClienteController {
 	@Put("/cliente/update")
 	public void update(Cliente cliente) {
 		clienteDao.update(cliente);
+		result.include("attSucesso", "CLIENTE ATUALIZADO COM SUCESSO");
 		result.redirectTo(this).lista();
 	}
 	
@@ -79,7 +80,7 @@ public class ClienteController {
 		try {
 			clienteDao.busca(cpf);		
 			result.include("cad","CPF já cadastrado");	
-			result.redirectTo(this).formCpf();
+			result.redirectTo(this).lista();
 			}catch (Exception e) {
 				result.include("cadN","CPF não cadastrado, realize o cadastro");
 				result.redirectTo(this).form();

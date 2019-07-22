@@ -9,22 +9,27 @@
 	<form action="${linkTo[UsuarioController].adiciona(null) }"
 		method="POST" id="cad_usuario">
 
-		<p id="login">${login}</p>
+		
 		<div class="form-row">
 			<div class="form-group col-md-6">
-				<label for="nome">NOME:</label> <input type="text" name="usuario.nome" id="nome" class="form-control" value="${usuario.nome}" placeholder="Nome completo"/>
+				<label for="nome">NOME:</label>
+				<input type="text" name="usuario.nome" id="nome" class="form-control" value="${usuario.nome}" placeholder="Nome completo"/>
 			</div>
 			
 			<div class="form-group col-md-6">
-				<label for="email">E-MAIL:</label> <input type="text" name="usuario.email" id="email" class="form-control" value="${usuario.email}" placeholder="Digite um e-mail" />
+				<label for="email">E-MAIL:</label>
+				<input type="text" name="usuario.email" id="email" class="form-control" value="${usuario.email}" placeholder="Digite um e-mail" />
 			</div>
 
 			<div class="form-group col-md-6">
-				<label for="login">Usuario(Login):</label> <input type="text" name="usuario.login"	id="login" class="form-control" value="${usuario.login}"/>
+				<label for="login">Usuario(Login):</label>
+				<input type="text" name="usuario.login"	id="login" class="form-control" value="${usuario.login}"/>
+				<p id="login">${login}</p>
 			</div>
 
 			<div class="form-group col-md-6">
-				<label for="senha">Senha:</label> <input type="password" name="usuario.senha" id="senha" class="form-control" value="${usuario.senha}" />
+				<label for="senha">Senha:</label>
+				<input type="password" name="usuario.senha" id="senha" class="form-control" value="${usuario.senha}" />
 			</div>
 			
 			<div class="form-group">

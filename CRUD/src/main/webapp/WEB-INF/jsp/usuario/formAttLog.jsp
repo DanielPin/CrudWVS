@@ -8,8 +8,8 @@
 
 	<form action="${linkTo[UsuarioController].updateLog(null)}"
 		method="POST" id="att_usuarioLogado">	
-		<p id="suscessoAt">${suscessoAt}</p>
-		<p id="senhaTrue">${senhaTrue}</p>	
+		<p class="sucesso" id="suscessoAt">${suscessoAt}</p>
+		<p class="sucesso" id="senhaTrue">${senhaTrue}</p>	
 		<div class="form-row">
 		
 		

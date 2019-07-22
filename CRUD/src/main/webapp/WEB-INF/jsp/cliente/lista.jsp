@@ -2,8 +2,10 @@
 <%@taglib tagdir="/WEB-INF/tags/template" prefix="template" %>
 <c:import url="/WEB-INF/jsp/header.jsp" />
 <div class="table-responsive" id="lista">
-	<table id="example" class="display nowrap " style="width: 100%">
-	<p id="cadSu">${cadSu}</p>
+	<p class="sucesso" id="cadSu">${cadSu}</p>			 <!--  Cadastrado com sucesso  -->
+	<p  id="cad">${cad}</p> 							 <!--  CPF já cadastrado  -->
+	<p class="sucesso "id="attSucesso">${attSucesso}</p> <!--  atualizado com sucesso  -->
+	<table id="example" class="display nowrap " style="width: 100%">	
 		<thead>
 			<tr>				
 				<th>NOME</th>

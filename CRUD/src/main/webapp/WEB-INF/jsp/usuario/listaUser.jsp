@@ -3,6 +3,9 @@
 <c:import url="/WEB-INF/jsp/header.jsp" />
 <c:if test="${usuarioLogado.logado}">
 <div class="table-responsive" id="lista">
+	<p class="sucesso "id="attSu">${attSu}</p>
+	<p class="sucesso "id="senhaS">${senhaS}</p>
+	<p class="sucesso "id="addUserSucesso">${addUserSucesso}</p>
 	<table id="example" class="display nowrap " style="width: 100%">
 		<thead>
 			<tr>				
@@ -69,16 +72,16 @@
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Deletar usuario</h5>
+											<h5 class="modal-title" id="exampleModalLabel">DELETAR USUARIO</h5>
 											<button type="button" class="close" data-dismiss="modal"
 												aria-label="Cancelar">
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
-										<div class="modal-body">usuario deletado com sucesso</div>									
+										<div class="modal-body">USUARIO DELETADO COM SUCESSO</div>									
 										<div class="modal-footer">
 											<button type="button" class="btn btn-primary"
-												data-dismiss="modal">ok</button>											
+												data-dismiss="modal">OK</button>											
 										</div>
 									</div>
 								</div>
