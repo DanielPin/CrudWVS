@@ -4,8 +4,6 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-import br.com.caelum.vraptor.Result;
-import br.com.wvs.controller.LoginController;
 import br.com.wvs.model.Usuario;
 
 

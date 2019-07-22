@@ -12,7 +12,6 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
 
 import br.com.wvs.dao.ClienteDao;
-import br.com.wvs.dao.SqlServer;
 import br.com.wvs.model.Cliente;
 
 @Controller

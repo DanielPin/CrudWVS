@@ -5,23 +5,18 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.validation.ConstraintViolationException;
 
-import br.com.caelum.vraptor.Result;
-import br.com.wvs.controller.ClienteController;
+
+
+
 import br.com.wvs.model.Cliente;
-import br.com.wvs.model.Usuario;
+
 
 @RequestScoped
 public class ClienteDao {
 	
 	private EntityManager manager;
-	private Result result;
+
 	
 	@Inject
 	public ClienteDao(EntityManager manager ) {

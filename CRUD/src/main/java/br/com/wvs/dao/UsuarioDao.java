@@ -2,14 +2,13 @@ package br.com.wvs.dao;
 
 import java.util.List;
 
-import javax.enterprise.context.Dependent;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
-import br.com.wvs.model.Cliente;
+
 import br.com.wvs.model.Usuario;
 
 
