@@ -15,9 +15,11 @@ import br.com.wvs.dao.SqlServer;
 @ApplicationScoped
 public class EntityManagerProducer {
 	
+	// Manager para o banco de dados MySql que é o banco default
 	@PersistenceUnit(unitName = "default")
 	private EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
 	
+	//Manager para o banco de dados SQLServer
 	@PersistenceUnit(unitName = "SqlServer")
 	private EntityManagerFactory factory2 = Persistence.createEntityManagerFactory("SqlServer");
 	
@@ -37,7 +39,7 @@ public class EntityManagerProducer {
 		return factory2.createEntityManager();
 	}
 	
-	public void close (@Disposes EntityManager manager) {
+	public void close (@Disposes EntityManager manager) { // @Disposes destroi a instancia
 		manager.close();
 	}
 	

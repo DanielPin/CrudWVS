@@ -1,6 +1,9 @@
 package br.com.wvs.model;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,7 +46,19 @@ public class Usuario implements Serializable {
 
 	public Usuario() {
 	}
-
+	
+	public void senha() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		MessageDigest cript = MessageDigest.getInstance("SHA-256");
+		byte senhaCrip[] = cript.digest(this.senha.getBytes("UTF-8"));
+		
+		StringBuilder senhaHex = new StringBuilder();
+		for(byte b : senhaCrip) {
+			senhaHex.append(String.format("%02X", 0xFF & b));
+		}
+		
+		this.setSenha(senhaHex.toString());
+		
+	}
 	@Transient
 	public String getSenhaConf() {
 		return senhaConf;
@@ -55,7 +70,7 @@ public class Usuario implements Serializable {
 	}
 
 	@Transient
-	public String getSenhaAtual() {
+	public String getSenhaAtual() {		
 		return senhaAtual;
 	}
 
@@ -96,11 +111,11 @@ public class Usuario implements Serializable {
 		this.login = login;
 	}
 
-	public String getSenha() {
+	public String getSenha() {		
 		return senha;
 	}
 
-	public void setSenha(String senha) {
+	public void setSenha(String senha) {	
 		this.senha = senha;
 	}
 

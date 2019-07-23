@@ -1,5 +1,8 @@
 package br.com.wvs.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,6 +14,8 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
 import br.com.wvs.dao.UsuarioDao;
 import br.com.wvs.model.Usuario;
+import br.com.wvs.seguranca.Open;
+import br.com.wvs.seguranca.SenhaHash;
 import br.com.wvs.seguranca.UsuarioLogado;
 
 @Controller
@@ -19,6 +24,7 @@ public class UsuarioController {
 	private Result result;
 	private UsuarioLogado usuarioLogado;
 	
+	// Construtor com variáveis
 	@Inject
 	public UsuarioController(UsuarioDao usuarioDao, Result result, UsuarioLogado usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
@@ -26,6 +32,7 @@ public class UsuarioController {
 		this.result = result;
 	}
 	
+	// Construtor vazio
 	public UsuarioController() {}
 	
 	// Trocar senha ( como administrador )
@@ -33,20 +40,22 @@ public class UsuarioController {
 	public Usuario trocaSenha(Usuario usuario) { // Recebe o usuario que irá ter a senha alterada
 		return usuarioDao.find(usuario.getId()); // Procura o usuario com base no ID
 	}
-
+	
 	public void formAttLog() {} // Formulário para atualização de usuário que esta logado no sistema
 	public void formAttSenha() {} // Formulário para alterar senha de usuário que está logado no sistema
 	public void formCadUsu() {} // Formlário para cadastro de novos usuário de acesso ao sistema
 	
 	// Lista todos os usuário que tem acesso ao sistema
+	
 	public void listaUser() { 
 		List<Usuario> usuarios = usuarioDao.lista(); // Busca todos os usuários cadastrados e armazena na lista usuarios
 		result.include("usuarios", usuarios);		// Informa a variavel que sera usada no jsp		
 	}
-	
+
 	// Adiciona um novo usuario no banco
 	public void adiciona (Usuario usuario) {			
 		try {		
+			usuario.senha();	
 			usuarioDao.adiciona(usuario); // Informa o usuário para o método adicionar o mesmo no banco
 			result.include("addUserSucesso","USUARIO CADASTRADO COM SUCESSO"); // Prepara mensagem para ser exibi na lista de usuários
 			result.redirectTo(this).listaUser(); // Redireciona para a lista de usuários cadastrados
@@ -73,9 +82,11 @@ public class UsuarioController {
 	
 	//Trocar senha ( como ADM )
 	@Put
-	public void update(Usuario usuario, String confSenha) { //Recebe o usuário com a nova senha , e recebe a confirmação da nova senha
+	public void update(Usuario usuario, String confSenha) throws NoSuchAlgorithmException, UnsupportedEncodingException { //Recebe o usuário com a nova senha , e recebe a confirmação da nova senha
+		SenhaHash senhaC = new SenhaHash();
+		String s = senhaC.senhaCriptografada(confSenha);
 		
-		if(usuario.getSenha().equals(confSenha)) {	// Caso o valor das duas senhas sejam iguais entra no if		
+		if(usuario.getSenha().equals(s)) {	// Caso o valor das duas senhas sejam iguais entra no if		
 			usuarioDao.update(usuario); // Envia os dados para o metodo que irá realizar a atualização 
 			result.include("senhaS","SENHA ATUALIZADA COM SUCESSO"); // Prepara mensagem para ser exibida na lista de usuários
 			result.redirectTo(this).listaUser(); // Redireciona para a lista de usuários			
@@ -115,8 +126,12 @@ public class UsuarioController {
 	
 	// Atualizar senha do usuário que está logado
 	@Put
-	public void updateSenha(Usuario usuario) { // Recebe os dados do usuário que está logado
+	public void updateSenha(Usuario usuario) throws NoSuchAlgorithmException, UnsupportedEncodingException { // Recebe os dados do usuário que está logado
 		Usuario user = usuarioDao.find(usuario.getId()); // Procura os dados do usuário logado no banco
+		SenhaHash senhaC = new SenhaHash();
+		usuario.setSenhaConf(senhaC.senhaCriptografada(usuario.getSenhaConf()));
+		usuario.setSenhaAtual(senhaC.senhaCriptografada(usuario.getSenhaAtual()));
+		usuario.setSenha(senhaC.senhaCriptografada(usuario.getSenha()));
 	//Compara a senha Atual com a senha salva no banco
 	 if(user.getSenha().equals(usuario.getSenhaAtual())) {
 		 //Caso as senhas sejam iguais verifica se a nova senha e o campo confirma senha são iguais

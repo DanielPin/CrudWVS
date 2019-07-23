@@ -1,5 +1,9 @@
 package br.com.wvs.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
@@ -9,6 +13,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.wvs.dao.UsuarioDao;
 import br.com.wvs.model.Usuario;
 import br.com.wvs.seguranca.Open;
+import br.com.wvs.seguranca.SenhaHash;
 import br.com.wvs.seguranca.UsuarioLogado;
 @Dependent
 @Controller
@@ -32,11 +37,15 @@ public class LoginController {
     	
     }
     
+
+	
 	// Autenticação 
 	@Open
-    public void autentica(String login, String senha){  // Recebe login e senha digitados no formualário de login
-    	Usuario usuario = usuarioDao.busca(login,senha); // Variavel usuario recebe usuario que o banco encontrou compativel com login e senha
-    	if(usuario != null){ // Caso o retorno da variavel usuario nao seja null entra no if
+    public void autentica(String login, String senha) throws NoSuchAlgorithmException, UnsupportedEncodingException{  // Recebe login e senha digitados no formualário de login
+		SenhaHash senhaC = new SenhaHash();
+		senha = senhaC.senhaCriptografada(senha);
+		Usuario usuario = usuarioDao.busca(login,senha); // Variavel usuario recebe usuario que o banco encontrou compativel com login e senha
+    	if(usuario != null){ // Caso o retorno da variavel usuario nao seja null entra no if   		
     		usuarioLogado.fazLogin(usuario); //Método faz login recebe usuario encontrado no banco
     		result.redirectTo(IndexController.class).index(); //Redireciona para a pagina inicial(index) da aplicação
     	}else { // Caso o valor da variavel usuario seja null

@@ -1,6 +1,9 @@
 package br.com.wvs.seguranca;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -34,7 +37,7 @@ public class UsuarioLogado implements Serializable{
 		return usuario.getLogin();
 	}
 	
-	public String getSenha() {
+	public String getSenha() throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		return usuario.getSenha();
 	}
 	
