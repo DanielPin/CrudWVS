@@ -84,9 +84,9 @@ public class UsuarioController {
 	@Put
 	public void update(Usuario usuario, String confSenha) throws NoSuchAlgorithmException, UnsupportedEncodingException { //Recebe o usuário com a nova senha , e recebe a confirmação da nova senha
 		SenhaHash senhaC = new SenhaHash();
-		String s = senhaC.senhaCriptografada(confSenha);
-		
-		if(usuario.getSenha().equals(s)) {	// Caso o valor das duas senhas sejam iguais entra no if		
+		confSenha = senhaC.senhaCriptografada(confSenha);
+		usuario.setSenha(senhaC.senhaCriptografada(usuario.getSenha()));
+		if(usuario.getSenha().equals(confSenha)) {	// Caso o valor das duas senhas sejam iguais entra no if
 			usuarioDao.update(usuario); // Envia os dados para o metodo que irá realizar a atualização 
 			result.include("senhaS","SENHA ATUALIZADA COM SUCESSO"); // Prepara mensagem para ser exibida na lista de usuários
 			result.redirectTo(this).listaUser(); // Redireciona para a lista de usuários			
