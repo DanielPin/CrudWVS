@@ -6,13 +6,16 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Result;
+import br.com.wvs.dao.SenhaAntigaDao;
 import br.com.wvs.dao.UsuarioDao;
+import br.com.wvs.model.SenhaAntiga;
 import br.com.wvs.model.Usuario;
 import br.com.wvs.seguranca.Open;
 import br.com.wvs.seguranca.SenhaHash;
@@ -22,7 +25,9 @@ import br.com.wvs.seguranca.UsuarioLogado;
 public class UsuarioController {
 	private UsuarioDao usuarioDao;
 	private Result result;
-	private UsuarioLogado usuarioLogado;
+	private UsuarioLogado usuarioLogado;	
+	SenhaAntiga senhaAntiga = new SenhaAntiga();
+	SenhaAntigaDao antiga = new SenhaAntigaDao();
 	
 	// Construtor com variáveis
 	@Inject
@@ -53,13 +58,13 @@ public class UsuarioController {
 	}
 
 	// Adiciona um novo usuario no banco
-	public void adiciona (Usuario usuario) {			
+	public void adiciona (Usuario usuario) throws NoSuchAlgorithmException, UnsupportedEncodingException {			
 		try {		
-			usuario.senha();	
-			usuarioDao.adiciona(usuario); // Informa o usuário para o método adicionar o mesmo no banco
+			usuario.senha();			
+			usuarioDao.adiciona(usuario); // Informa o usuário para o método adicionar o mesmo no banco				
 			result.include("addUserSucesso","USUARIO CADASTRADO COM SUCESSO"); // Prepara mensagem para ser exibi na lista de usuários
 			result.redirectTo(this).listaUser(); // Redireciona para a lista de usuários cadastrados
-		}catch (Exception e) { // Caso altere o login e ele já esteja cadastrado no banco a resposta será uma exception
+		}catch (PersistenceException e) { // Caso altere o login e ele já esteja cadastrado no banco a resposta será uma exception
 			result.include("login","LOGIN JÁ EXISTE, TENTE OUTRO"); //Prepara mensagem de erro para ser exibir no formulario de cadastro
 			result.redirectTo(this).formCadUsu(); // Redireciona para o formulário de cadastro
 			
@@ -86,10 +91,30 @@ public class UsuarioController {
 		SenhaHash senhaC = new SenhaHash();
 		confSenha = senhaC.senhaCriptografada(confSenha);
 		usuario.setSenha(senhaC.senhaCriptografada(usuario.getSenha()));
+		
 		if(usuario.getSenha().equals(confSenha)) {	// Caso o valor das duas senhas sejam iguais entra no if
-			usuarioDao.update(usuario); // Envia os dados para o metodo que irá realizar a atualização 
+			List<SenhaAntiga> senhas = antiga.buscaSenhaAntiga(usuario.getId());
+			boolean antigaSenha = false;			
+				for(SenhaAntiga senha: senhas) {
+					
+						if(senha.getSenhaAntiga().equals(usuario.getSenha())) {
+							 antigaSenha = true;
+							 break;
+						}else {
+							antigaSenha = false;
+						}
+				}
+			if(antigaSenha != true) {
+			usuarioDao.update(usuario); // Envia os dados para o metodo que irá realizar a atualização
+			senhaAntiga.setUsuario(usuario);
+			senhaAntiga.setSenhaAntiga(usuario.getSenha());						
+			antiga.salvaSenhaAntiga(senhaAntiga);			
 			result.include("senhaS","SENHA ATUALIZADA COM SUCESSO"); // Prepara mensagem para ser exibida na lista de usuários
-			result.redirectTo(this).listaUser(); // Redireciona para a lista de usuários			
+			result.redirectTo(this).listaUser(); // Redireciona para a lista de usuários		
+			}else {
+				result.include("senhaCo","Senha não pode ser igual as 5 ultimas utilizadas"); // Prepara mensagem para ser exibida na tela de troca de senha
+				result.redirectTo(this).trocaSenha(usuario); // Redireciona para a troca de senha 
+			}
 		}else {	// Caso as senhas não sejam iguais		
 			result.include("senhaCo","AS SENHAS NÃO COINCIDEM"); // Prepara mensagem para ser exibida na tela de troca de senha
 			result.redirectTo(this).trocaSenha(usuario); // Redireciona para a troca de senha 
@@ -133,13 +158,24 @@ public class UsuarioController {
 		usuario.setSenhaAtual(senhaC.senhaCriptografada(usuario.getSenhaAtual()));
 		usuario.setSenha(senhaC.senhaCriptografada(usuario.getSenha()));
 	//Compara a senha Atual com a senha salva no banco
+
 	 if(user.getSenha().equals(usuario.getSenhaAtual())) {
 		 //Caso as senhas sejam iguais verifica se a nova senha e o campo confirma senha são iguais
 		 if(usuario.getSenha().equals(usuario.getSenhaConf())) {
-			 usuarioDao.update(usuario); // Envia os dados para o metodo que irá realizar a atualização 
-			 result.include("senhaTrue","SENHA ATUALIZADA COM SUCESSO"); // Prepara mensagem para ser exibida no formulário de atualização de usuarios
-			 this.usuarioLogado.fazLogin(usuario); // Faz novo login passando os novos dados do usuários
-			 result.redirectTo(this).formAttLog(); // Redireicona para o formulário de atualização de usuário logado
+//		 	 senhaAntiga = antiga.find(usuario.getSenha());
+		 	 if(user.getSenha() != senhaAntiga.getSenhaAntiga()){
+				usuarioDao.update(usuario); // Envia os dados para o metodo que irá realizar a atualização
+				senhaAntiga.setUsuario(usuario);
+				senhaAntiga.setSenhaAntiga(usuario.getSenha());							
+				antiga.salvaSenhaAntiga(senhaAntiga);			
+				result.include("senhaTrue", "SENHA ATUALIZADA COM SUCESSO"); // Prepara mensagem para ser exibida no formulário de atualização de usuarios
+				this.usuarioLogado.fazLogin(usuario); // Faz novo login passando os novos dados do usuários
+				result.redirectTo(this).formAttLog(); // Redireicona para o formulário de atualização de usuário logado
+			}else {
+		 			result.include("igual","Escolha uma senha diferente das ultimas 5 usadas");
+		 			result.redirectTo(this).formAttSenha();
+		 	      }
+
 		 }else { // Caso a nova senha e a confirma senha não sejam iguais
 			 result.include("senhaConf","AS SENHAS NÃO COINCIDEM"); // Prepara mensagem para se exibida no formulário de atualizar senha
 			 result.redirectTo(this).formAttSenha(); // Redireciona para o formulário de atualização de senha
