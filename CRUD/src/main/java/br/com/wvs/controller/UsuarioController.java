@@ -198,7 +198,7 @@ public class UsuarioController {
 		 result.include("senhaFalse","SENHA ATUAL INVALIDA"); // Prepara mensagem para se exibida no formulário de atualizar senha
 		 result.redirectTo(this).formAttSenha(); // Redireciona para o formulário de atualização de senha
 	 }
-	.
+	
 	}
 	
 	
