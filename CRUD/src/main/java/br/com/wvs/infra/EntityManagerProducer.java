@@ -28,6 +28,7 @@ public class EntityManagerProducer {
 	@RequestScoped
 	@Default
 	public EntityManager createDefaultManager() {
+		  StackTraceElement[] st = Thread.currentThread().getStackTrace(); System.out.println( "create connection called from " + st[2] ); 
 		return factory.createEntityManager();
 	}
 	
@@ -36,11 +37,13 @@ public class EntityManagerProducer {
 	@RequestScoped
 	@SqlServer
 	public EntityManager createSqlServerManager() {
+		  StackTraceElement[] st = Thread.currentThread().getStackTrace(); System.out.println( "create connection called from " + st[2] ); 
 		return factory2.createEntityManager();
 	}
 	
 	public void close (@Disposes EntityManager manager) { // @Disposes destroi a instancia
 		manager.close();
+
 	}
 	
 

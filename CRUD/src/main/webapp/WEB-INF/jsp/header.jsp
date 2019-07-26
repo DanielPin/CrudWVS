@@ -16,6 +16,8 @@
 
 
 
+
+
 <script type="text/javascript" src="<c:url value='/js/jquery-3.4.1.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/js/jquery.validate.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/js/jquery.mask.js'/>"> </script>
@@ -23,7 +25,11 @@
 <script type="text/javascript" src="<c:url value='/js/dataTables.fixedHeader.min.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/js/dataTables.responsive.min.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/js/cpf.validator.js'/>"> </script>
+<script src="https://kit.fontawesome.com/db659eece9.js"></script>
 <script type="text/javascript" src="<c:url value='/js/pace.min.js'/>"> </script>
+<%-- <script type="text/javascript" src="<c:url value='/js/pace.min.js'/>"> </script> --%>
+
+
 
 <script  src="<c:url value='/js/bootstrap.bundle.js'/>"> </script>
 
@@ -128,9 +134,21 @@ $(document).ready(function() {
     };
 
     </script>
+<style>
+    #load {
+    width: 100px;
+    height: 100px;
+    float: left;
+    position: relative;
+    top: 100px;
+    left: 50%;
+    color: gray;
+ }
+</style>
+	
 
 </head>
-<body onload="__loadEsconde();">
+<body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="tm_nav">
   <a class="navbar-brand" href="${linkTo[IndexController].index()}">CRUD</a>
@@ -180,7 +198,7 @@ $(document).ready(function() {
   
 </nav>
 
-
 	<div class="container">
+	
 		<main>
 		

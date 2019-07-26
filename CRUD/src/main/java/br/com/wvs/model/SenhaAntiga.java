@@ -2,6 +2,9 @@ package br.com.wvs.model;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 public class SenhaAntiga {
 
@@ -12,6 +15,7 @@ public class SenhaAntiga {
     private String senhaAntiga;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Usuario usuario;
 
     public int getId() {

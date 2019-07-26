@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-
+import br.com.wvs.model.SenhaAntiga;
 import br.com.wvs.model.Usuario;
 
 
@@ -69,8 +69,40 @@ public class UsuarioDao {
 
 	//Método para atualizar um usuário
 	public void update(Usuario usuario) { // Recebe usuário que será atualiazado
+
 		manager.getTransaction().begin(); // Inicia transação para atualizar usuário
 		manager.merge(usuario); // Atualiza usuário
 		manager.getTransaction().commit(); // Indica o fim da transação
 	}
+	
+	
+	
+	
+	 public void salvaSenhaAntiga (SenhaAntiga senhaAntiga){
+	        manager.getTransaction().begin();
+	        manager.persist(senhaAntiga);
+	        manager.getTransaction().commit();	       
+	    }
+
+	    public List<SenhaAntiga> buscaSenhaAntiga(int id){       
+	    	manager.getTransaction().begin();
+	    	
+	            TypedQuery<SenhaAntiga> query = manager.createQuery("select u from SenhaAntiga u where usuario_id = :usuario_id order by id desc", SenhaAntiga.class);
+	            query.setParameter("usuario_id",id);       
+	            query.setMaxResults(5);
+	  
+	        
+	        manager.getTransaction().commit();
+	        return query.getResultList();   
+
+	               
+	    }
+	
+	
+	
+	
+	
+	
+	
+	
 }
