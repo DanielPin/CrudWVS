@@ -30,16 +30,6 @@
 	<link href="<c:url value='/css/Login/css/main.css'/>" rel="stylesheet" type="text/css" />
 	<link href="<c:url value='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'/>" rel="stylesheet" type="text/css" />
 	
-<style>
-    #load {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top: 30%;
-    left: 45%;
-    color: blue;
- }
-</style>
 	
 </head>
 
@@ -52,7 +42,6 @@
 		<div class="container-login100">
 		
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-			<div class="load"> <i class="fa fa-cog fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> </div>
 				<form class="login100-form validate-form flex-sb flex-w" action="${linkTo[LoginController].autentica(null,null)}" method="POST">
 					
 					<span class="login100-form-title p-b-32">
